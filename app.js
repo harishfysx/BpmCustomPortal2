@@ -8,8 +8,11 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash    = require('connect-flash');
 var ensureAuth =require('connect-ensure-login');
+var xhr = require('node-xhr');
 
-
+//routes loading
+var SignIn = require('./routes/signIn'); 
+var tressPass= require('./routes/tressPass');
 
 
 var app = express();
@@ -37,49 +40,58 @@ passport.serializeUser(function(user, done) {
 	});
 //passport to use local strategy	
 passport.use(new LocalStrategy({
-	   passReqToCallback : true 
-		},
 		
-		function(req,username, password,done){
-			process.nextTick(function() {
+        passReqToCallback : true
+    },
+    function(req, username, password, done) { 
+	var auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
+	app.locals.auth = auth;
+        // check in mongo if a user with username exists or not
+        xhr.get({
+            url: 'http://192.168.2.140:9080/rest/bpm/wle/v1/user/current',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': auth
+            },
+        }, 
+        function(err, res) {
+            if (err) {
+                //console.log(err.message);
+                return;
+            }
+            
+            if(JSON.stringify(res.status.code)==401){
+            	
+            	//console.log(res);
+            	return done(null, null,req.flash('message', 'Invalid Username Or Password'))
+     
+            }else{
+            	var user=res.body.data;
+            	req.user=res.body.data.userName;
+            	console.log("harish log"+res.body.data.userName);
+            	console.log(req.user)
+                return done(null, user);
+                 
+               
+            }
+            
+        });
+        
 
-	    if(username==password){
-	    	console.log("authetnicated")
-	    	done(null,{id:username,name:username});
-	    }else{
-	    	console.log("Not authetnicated")
-	    	req.flash('message', 'Invalid Username Or Password');
-	      done(null,null);
-	    }
-	    
-		})
-	
-	})
-	
-);
+    }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//home page
-app.get('/',ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
-	  res.render('pages/home');
+app.use(function(req, res, next) {
+	  res.locals.auth = app.locals.auth;
+	  
+	  next();
 	});
 
-//login page
-app.get('/login',function(req, res, next) {
-		  res.render('pages/login',{message: req.flash('message')});
-		});
+app.use('/',tressPass);
 
-app.post('/login', passport.authenticate('local', {
-	  successRedirect: '/',
-	  failureRedirect: '/login', // see text
-	  failureFlash: true // optional, see text as well
-}))
 
-app.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/login');
-})
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res) {
