@@ -4,8 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var passportLocal= require('passport-local')
+var flash    = require('connect-flash');
+var ensureAuth =require('connect-ensure-login');
 
-var routes = require('./routes/index');
+
 
 
 var app = express();
@@ -20,17 +24,55 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(function(user, done) {
+	  done(null, user);
+	});
+
+	passport.deserializeUser(function(user, done) {
+	  done(null, user);
+	});
+//passport to use local strategy	
+passport.use(new passportLocal.Strategy(function(username, password,done){
+	    if(username==password){
+	    	console.log("authetnicated")
+	    	done(null,{id:username,name:username});
+	    }else{
+	    	done(null,null);
+	    }
+	}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+//home page
+app.get('/',ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
+	  res.render('pages/home');
+	});
 
+//login page
+app.get('/login',function(req, res, next) {
+		  res.render('pages/login');
+		});
+
+app.post('/login',passport.authenticate('local'),function(req,res){
+	
+	res.redirect('/')
+})
+
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/login');
+})
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function(req, res) {
+    res.status(400);
+   res.render('pages/404', {custmessage: '404: File Not Found'});
 });
+
 
 // error handlers
 
