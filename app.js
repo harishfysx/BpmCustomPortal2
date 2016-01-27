@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var passportLocal= require('passport-local')
+var LocalStrategy = require('passport-local').Strategy;
 var flash    = require('connect-flash');
 var ensureAuth =require('connect-ensure-login');
 
@@ -36,14 +36,27 @@ passport.serializeUser(function(user, done) {
 	  done(null, user);
 	});
 //passport to use local strategy	
-passport.use(new passportLocal.Strategy(function(username, password,done){
+passport.use(new LocalStrategy({
+	   passReqToCallback : true 
+		},
+		
+		function(req,username, password,done){
+			process.nextTick(function() {
+
 	    if(username==password){
 	    	console.log("authetnicated")
 	    	done(null,{id:username,name:username});
 	    }else{
-	    	done(null,null);
+	    	console.log("Not authetnicated")
+	    	req.flash('message', 'Invalid Username Or Password');
+	      done(null,null);
 	    }
-	}));
+	    
+		})
+	
+	})
+	
+);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -54,13 +67,14 @@ app.get('/',ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
 
 //login page
 app.get('/login',function(req, res, next) {
-		  res.render('pages/login');
+		  res.render('pages/login',{message: req.flash('message')});
 		});
 
-app.post('/login',passport.authenticate('local'),function(req,res){
-	
-	res.redirect('/')
-})
+app.post('/login', passport.authenticate('local', {
+	  successRedirect: '/',
+	  failureRedirect: '/login', // see text
+	  failureFlash: true // optional, see text as well
+}))
 
 app.get('/logout', function(req, res) {
     req.logout();

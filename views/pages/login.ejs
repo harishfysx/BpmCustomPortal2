@@ -60,6 +60,9 @@
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </fieldset>
                         </form>
+                        <% if (message.length > 0) { %>
+  		<div class="alert alert-danger"><%= message %></div>
+    <% } %>
                     </div>
                 </div>
             </div>
