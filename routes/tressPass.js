@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var ensureAuth =require('connect-ensure-login');
 var xhr = require('node-xhr');
+var config = require('./config');
 var router = express.Router();
 var a = require("array-tools");
 
@@ -9,7 +10,7 @@ router.get('/',ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
 	console.log(res.locals.auth)
 	
 	xhr.put({
-        url: 'http://192.168.2.140:9080/rest/bpm/wle/v1/search/query/?',
+        url: config.baseUrl+'/bpm/wle/v1/search/query/?',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': res.locals.auth
@@ -25,13 +26,16 @@ router.get('/',ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
         }
         
         var refinedData={};
+        if(resp.body.data.data){
+        	
+        
         refinedData.normalTcount=a.where(resp.body.data.data, { taskPriority: "Normal" }).length;
         refinedData.highTcount=a.where(resp.body.data.data, { taskPriority: "High" }).length;
         refinedData.lowTcount=a.where(resp.body.data.data, { taskPriority: "Low" }).length;
-        
-        console.log()
+        }
+        console.log("tasks were fetched")
         	//console.log(resp.body.data.totalCount);
-        res.render('pages/home',{tasksData:refinedData||'test'});
+        res.render('pages/home',{pageHeader:'Dashboard',tasksData:refinedData||'test'});
         
     });
 	//console.log(resp);
