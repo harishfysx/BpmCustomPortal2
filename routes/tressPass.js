@@ -7,7 +7,7 @@ var router = express.Router();
 var a = require("array-tools");
 
 router.get('/',ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
-	console.log(res.locals.auth)
+	console.log(res.locals.userName)
 	
 	xhr.put({
         url: config.baseUrl+'/bpm/wle/v1/search/query/?',
@@ -33,9 +33,9 @@ router.get('/',ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
         refinedData.highTcount=a.where(resp.body.data.data, { taskPriority: "High" }).length;
         refinedData.lowTcount=a.where(resp.body.data.data, { taskPriority: "Low" }).length;
         }
-        console.log("tasks were fetched")
+        //console.log("tasks were fetched")
         	//console.log(resp.body.data.totalCount);
-        res.render('pages/home',{pageHeader:'Dashboard',tasksData:refinedData||'test'});
+        res.render('pages/home',{pageHeader:'Dashboard',userName:res.locals.userName||'testuser',tasksData:refinedData||'test',instanceId:''});
         
     });
 	//console.log(resp);

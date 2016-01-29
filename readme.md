@@ -1,4 +1,6 @@
-Versin2.
+Versin6.
 
-In this version communication to BPM and Mean framework estabalished
-and pulling the tasks for user from Hiring Advanced sample application
+In this version we are able to create instance from front desk page.
+validaiton implemented.
+
+

@@ -25,8 +25,38 @@ router.post('/startInst', function(req, res) {
 	  res.json(req.body);
 	})
 */
+router.get('/success200',function(req, res) {
+  res.render('pages/success200');
+});
+
 router.post('/startInst',function(req, res, next) {
-	console.log(res.locals.auth)
+	console.log(req.body)
+	
+	var patientData={"person":{
+								"firstName":req.body.firstName,
+								"lastName":req.body.lastName,
+								"middleName":req.body.midName,
+								"gender":req.body.gender,
+								"dateOfBirth":req.body.dob
+							  },
+					"address":{
+						       "address1":req.body.address1,
+						       "address2":req.body.address2,
+						       "city":req.body.city,
+						       "state":req.body.state,
+						       "country":req.body.country,
+						       "zip":req.body.zip,
+						       "phone":req.body.phone,
+						       "email":req.body.email
+						       },
+				    "insuranceInfo":{
+				    	"isInsured":req.body.isInsured,
+				    	"memberId":req.body.memberId,
+				    	"organization":req.body.organization,
+				    	"expiration":req.body.insExpDate
+				    		}
+					}
+	console.log(patientData)
 	
 	xhr.post({
         url: config.baseUrl+'/bpm/wle/v1/process?',
@@ -38,7 +68,7 @@ router.post('/startInst',function(req, res, next) {
             action: 'start',
             bpdId: config.bpdId,
 			branchId:config.branchId,
-			params:{"person":{"firstName":"Harish","lastName":"Puli","middleName":"Goud","gender":true,"dateOfBirth":"1985-05-03"},"address":{"address1":"10104 Landing Lane","address2":"Apt 10","city":"Moon Town","state":"PA","country":"USA","zip":15108,"phone":"573-578-0760","email":"harishfysx@gmail.com"},"insuranceInfo":{"isInsured":true,"memberId":"579437493er","organization":"Harrisburg","expiration":"2017-05-03"}},
+			params:patientData,
 			parts: 'all'
         },
     }, function(err, resp) {
@@ -52,7 +82,7 @@ router.post('/startInst',function(req, res, next) {
        //console.log(resp)
         	//console.log(resp.body.data.totalCount);
         if(resp.status.code==200){
-        	res.json('Success');
+        	res.redirect('/');
         }else if(resp.status.code==401){
         	res.render('pages/401');
         }else{

@@ -46,6 +46,7 @@ passport.use(new LocalStrategy({
     },
     function(req, username, password, done) { 
 	var auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
+	app.locals.userName=username;
 	app.locals.auth = auth;
         // check in mongo if a user with username exists or not
         xhr.get({
@@ -69,8 +70,8 @@ passport.use(new LocalStrategy({
             }else{
             	var user=res.body.data;
             	req.user=res.body.data.userName;
-            	console.log("harish log"+res.body.data.userName);
-            	console.log(req.user)
+            	//console.log("harish log"+res.body.data.userName);
+            	//console.log(req.user)
                 return done(null, user);
                  
                
@@ -85,6 +86,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
 	  res.locals.auth = app.locals.auth;
+	  res.locals.userName=app.locals.userName;
 	  
 	  next();
 	});
