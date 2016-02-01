@@ -1,6 +1,7 @@
 Versin6.
 
-In this version we are able to create instance from front desk page.
-validaiton implemented.
+In this version angular JS included.
+Work Item table for Front Desk D3partment Implemented with Angular JS
+
 
 

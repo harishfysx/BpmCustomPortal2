@@ -1,5 +1,6 @@
 var express = require('express');
 var passport = require('passport');
+var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var xhr = require('node-xhr');
 var config = require('./config');

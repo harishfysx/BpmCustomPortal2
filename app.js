@@ -14,7 +14,8 @@ var xhr = require('node-xhr');
 //var SignIn = require('./routes/signIn'); 
 var tressPass= require('./routes/tressPass');
 var frontDesk= require('./routes/frontDesk');
-var nurse= require('./routes/triage');
+var nurse= require('./routes/nurse');
+var getTasks= require('./routes/getTasks');
 
 var app = express();
 
@@ -95,6 +96,12 @@ app.use('/',tressPass);
 
 app.use('/frontDesk',frontDesk);
 app.use('/nurse',nurse);
+
+app.use('/data',getTasks)
+
+app.post('/createInst',function(req,res){
+	res.json('created')
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res) {
