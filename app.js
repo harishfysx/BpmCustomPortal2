@@ -16,7 +16,6 @@ var tressPass= require('./routes/tressPass');
 var frontDesk= require('./routes/frontDesk');
 var nurse= require('./routes/nurse');
 var getTasks= require('./routes/getTasks');
-
 var app = express();
 
 // view engine setup
@@ -25,6 +24,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -95,13 +95,10 @@ app.use(function(req, res, next) {
 app.use('/',tressPass);
 
 app.use('/frontDesk',frontDesk);
+app.use('/data',getTasks);
 app.use('/nurse',nurse);
 
-app.use('/data',getTasks)
 
-app.post('/createInst',function(req,res){
-	res.json('created')
-})
 
 // catch 404 and forward to error handler
 app.use(function(req, res) {

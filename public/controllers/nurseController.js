@@ -1,8 +1,9 @@
-var helloApp= angular.module('homeApp', ['smart-table']);
+var helloApp= angular.module('nurseApp', ['smart-table']);
 
-helloApp.controller('safeCtrl', function ($scope,$http) {
+helloApp.controller('safeCtrl', function ($scope,$http,$window) {
 
-	$http.post('/data/tasksData').success(function(response){
+	//get Intial data
+	$http.post('/nurse/nurseTasks').success(function(response){
 		  
 		//console.log(response);
 		
@@ -13,6 +14,31 @@ helloApp.controller('safeCtrl', function ($scope,$http) {
 		$scope.rowCollection = response.totalData;
 		  
 	   });
+	
+	//workTask
+	
+	$scope.selectedRow = null;
+	  $scope.workTask= function(task,rowIndex){
+		  $scope.selectedRow = rowIndex;
+		  //console.log(task);
+		  $http.get('/nurse/nurseTask/'+task.taskId).success(function(response){
+			  $scope.processInstanceName=response.processInstanceName; 
+			  $scope.taskDesc=response.description;
+			  $scope.patientFName=response.data.variables.person.firstName;
+			  $scope.patientMName=response.data.variables.person.middleName;
+			  $scope.patientLName=response.data.variables.person.lastName;
+			  $scope.patientGender=response.data.variables.person.gender;
+			  $scope.patientDob=response.data.variables.person.dateOfBirth;
+			
+			  console.log(response.data.variables.person);
+		  });
+		  
+		  
+						
+	  					}
+	  
+	  
+	
 });
 	  
     
