@@ -8,7 +8,7 @@ var router = express.Router();
 var a = require("array-tools");
 
 router.post('/tasksData',function(req, res, next) {
-	console.log(res.locals.userName)
+	//console.log(res.locals.userName)
 	
 	xhr.put({
         url: config.baseUrl+'/bpm/wle/v1/search/query/?',

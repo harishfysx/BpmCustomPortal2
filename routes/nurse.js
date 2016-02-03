@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var ensureAuth =require('connect-ensure-login');
 var xhr = require('node-xhr');
+var bodyParser=require("body-parser");
 var favicon = require('serve-favicon');
 var config = require('./config');
 var path = require('path');
@@ -101,5 +102,40 @@ router.get('/nurseTask/:id',function(req, res, next) {
 	
 	});
 
+//post Triage Form
+/*
+router.post('/postTriage',function(req,res){
+	console.log(req.body)
+	res.json(req.body)
+})
+*/
+router.post('/postTriage',function(req, res, next) {
+	//console.log(res.locals.userName)
+	
+	xhr.put({
+        url: config.baseUrl+'/bpm/wle/v1/task/'+req.body.tkiid+'?',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': res.locals.auth
+        },
+        params: {
+            action: 'finish',
+            params: req.body.taskParam,
+			parts:'all'
+        },
+    }, function(err, resp) {
+        if (err) {
+            console.log(err.message);
+            return;
+        }
+        
+        res.json(resp)
+        
+        
+        
+    }    
+	);
+	
+	});
 
 module.exports = router;

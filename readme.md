@@ -1,6 +1,6 @@
-Versin9.
+Versin10
 
-In this   version we improved the Nurse dpeartment page by adding selectable angualr JS table
+Implemented Nurse dashboard. Nurse able to finish the task after entering critical parameters.
 
 
 

@@ -129,21 +129,66 @@
 			</tr>
 			</tbody>
 		</table>
-		
+		<div ng-controller="postTriageCtrl" >				 
 		<div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             {{processInstanceName}}
                         </div>
                         <div class="panel-body">
-                            <p>{{taskDesc}}</p>
+						<input class="form-control" id="disabledInput" type="text" placeholder={{tkiid}} ng-model="tkiid" disabled>
+							<p><strong>Task ID:  </strong>{{tkiid}}</p>
+							<p><strong>Task Description:  </strong>{{taskDesc}}</p>
 							<p><strong>First Name:  </strong>{{patientFName}}</p>
 							<p><strong>Middle Name:  </strong>{{patientMName}}</p>
 							<p><strong>Last Name:  </strong>{{patientLName}}</p>
 							<p><strong>Gender:  </strong>{{patientGender}}</p>
 							<p><strong>Date Of Birth:  </strong>{{patientDob}}</p>
-							
-							
+				<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+			
+            <form id="nurseForm" ng-submit="postTriage()" class="form-horizontal" >
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Temparature</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="temparature" ng-model="temp" autocomplete="off" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Heart-Beat</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="heartBeat" ng-model="heartBeat" autocomplete="off" />
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label class="col-lg-3 control-label">Blood-Pressure</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="bloodpressure" ng-model="bloodpressure" autocomplete="off" />
+                    </div>
+                </div>
+				 <div class="form-group">
+                    <label class="col-lg-3 control-label">Height</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="height" ng-model="height" autocomplete="off" />
+                    </div>
+                </div>
+				
+				<div class="form-group">
+                    <label class="col-lg-3 control-label">Weight</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="weight" ng-model="weight" autocomplete="off" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <button  class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+			</div>
+        
 							
                         </div>
                         <div class="panel-footer">
@@ -158,3 +203,4 @@
 <% include lowerTemplate %>
    <!-- Controllers -->
     <script src="../controllers/nurseController.js"></script>
+	<script src="../js/nurseValidation.js"></script>
