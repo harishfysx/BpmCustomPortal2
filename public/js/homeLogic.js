@@ -2,7 +2,7 @@ $('#dob').datetimepicker({
     format: 'YYYY-MM-DD'
 }).on('dp.change dp.show', function(e) {
     // Validate the date when user change it
-    $('#frontDeskForm').data('bootstrapValidator').revalidateField('dob');
+    $('#patientCheckInForm').data('bootstrapValidator').revalidateField('dob');
     // You also can call it as following:
     // $('#defaultForm').bootstrapValidator('revalidateField', 'datetimePicker');
 });;
@@ -11,7 +11,7 @@ $('#insExpDate').datetimepicker({
     format: 'YYYY-MM-DD'
 }).on('dp.change dp.show', function(e) {
     // Validate the date when user change it
-    $('#frontDeskForm').data('bootstrapValidator').revalidateField('insExpDate');
+    $('#patientCheckInForm').data('bootstrapValidator').revalidateField('insExpDate');
     // You also can call it as following:
     // $('#defaultForm').bootstrapValidator('revalidateField', 'datetimePicker');
 });;
@@ -19,7 +19,7 @@ $('#insExpDate').datetimepicker({
 
 
 $(document).ready(function() {
-    $('#frontDeskForm')
+    $('#patientCheckInForm')
         .bootstrapValidator({
             excluded: [':disabled'],
             feedbackIcons: {

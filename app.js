@@ -12,11 +12,11 @@ var xhr = require('node-xhr');
 
 //routes loading
 //var SignIn = require('./routes/signIn'); 
-var tressPass= require('./routes/tressPass');
+var home= require('./routes/home');
 var frontDesk= require('./routes/frontDesk');
 var nurse= require('./routes/nurse');
 var doctor= require('./routes/doctor');
-var frontDeskTasks= require('./routes/frontDeskTasks');
+
 
 var app = express();
 
@@ -94,10 +94,8 @@ app.use(function(req, res, next) {
 	  next();
 	});
 
-app.use('/',tressPass);
-
+app.use('/',home);
 app.use('/frontDesk',frontDesk);
-app.use('/data',frontDeskTasks);
 app.use('/nurse',nurse);
 app.use('/doctor',doctor);
 

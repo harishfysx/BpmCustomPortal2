@@ -20,8 +20,8 @@ router.get('/logout', function(req, res) {
 	})
 	
 	
-//get Nurse Tasks
-router.post('/nurseTasks',function(req, res, next) {
+//get Doctor Tasks
+router.post('/doctorTasks',function(req, res, next) {
 	console.log(res.locals.userName)
 	
 	xhr.put({
@@ -31,7 +31,7 @@ router.post('/nurseTasks',function(req, res, next) {
             'Authorization': res.locals.auth
         },
         params: {
-            condition: ['taskActivityName|Equals|Triage Patient', 'taskStatus|Equals|Received'],
+            condition: ['taskActivityName|Equals|Diagnose Patient', 'taskStatus|Equals|Received'],
             organization: 'byInstance'
         },
     }, function(err, resp) {
@@ -61,17 +61,9 @@ router.post('/nurseTasks',function(req, res, next) {
 	);
 	
 	});
-//route to triage patient when clicked on work button
 
-/*
-router.get('/workTask/:id',function(req,res){
-	//console.log( req.params.id);
-	//res.send("tagId is set to " + req.params.id);
-	res.render('pages/triage',{pageHeader:'Triage Patient'})
-});
-*/
-
-router.get('/nurseTask/:id',function(req, res, next) {
+//get specifi doctor task
+router.get('/doctorTask/:id',function(req, res, next) {
 	console.log(res.locals.userName)
 	
 	xhr.get({
@@ -102,14 +94,8 @@ router.get('/nurseTask/:id',function(req, res, next) {
 	
 	});
 
-//post Triage Form
-/*
-router.post('/postTriage',function(req,res){
-	console.log(req.body)
-	res.json(req.body)
-})
-*/
-router.post('/postTriage',function(req, res, next) {
+//post (fnish) doctor task
+router.post('/postDoctor',function(req, res, next) {
 	//console.log(res.locals.userName)
 	
 	xhr.put({

@@ -70,7 +70,7 @@ router.get('/workTask/:id',function(req,res){
 	res.render('pages/triage',{pageHeader:'Triage Patient'})
 });
 */
-
+//get specific task details
 router.get('/nurseTask/:id',function(req, res, next) {
 	console.log(res.locals.userName)
 	
@@ -102,13 +102,8 @@ router.get('/nurseTask/:id',function(req, res, next) {
 	
 	});
 
-//post Triage Form
-/*
-router.post('/postTriage',function(req,res){
-	console.log(req.body)
-	res.json(req.body)
-})
-*/
+//post Triage Form(Patient Vital parameteres)
+
 router.post('/postTriage',function(req, res, next) {
 	//console.log(res.locals.userName)
 	

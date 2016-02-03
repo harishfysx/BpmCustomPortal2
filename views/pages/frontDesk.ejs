@@ -1,0 +1,173 @@
+<% include upperTemplate %>
+
+       
+		 <div ng-app="frontDeskApp" ng-controller="safeCtrl">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">26</div>
+                                    <div>Total Tasks</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+					
+				<div class="panel panel-green">
+				
+				
+					
+                    
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{normalTCount}}</div>
+                                    <div>Normal Priority</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">124</div>
+                                    <div>High Priority</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{highTcount}}</div>
+                                    <div>Highest Priority</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            
+
+
+		
+
+		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+			<thead>
+			<tr>
+				
+				<th st-sort="instanceName">Instance Name:Instance ID</th>
+				<th st-sort="taskSubjecte">Task Subject</th>
+				<th st-sort="taskId">Task ID</th>
+				<th st-sort="taskDueDate">Task DueDate</th>
+				
+			</tr>
+			<tr>
+				<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="row in displayedCollection" ng-click="workTask(row,$index)" ng-class="{'alert alert-danger':$index== selectedRow}">
+				
+				<td>{{row.instanceName}}</td>
+				<td>{{row.taskSubject}}</td>
+				<td>{{row.taskId}}</td>
+				<td>{{row.taskDueDate}}</td>
+				
+			</tr>
+			</tbody>
+		</table>
+		
+			<div ng-controller="postFrontDeskCtrl" >				 
+		<div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            {{processInstanceName}}
+                        </div>
+                        <div class="panel-body">
+						<input class="form-control" id="disabledInput" type="text" placeholder={{tkiid}} ng-model="tkiid" disabled>
+							<p><strong>Task ID:  </strong>{{tkiid}}</p>
+							<p><strong>Task Description:  </strong>{{taskDesc}}</p>
+							<p><strong>First Name:  </strong>{{patientFName}}</p>
+							<p><strong>Middle Name:  </strong>{{patientMName}}</p>
+							<p><strong>Last Name:  </strong>{{patientLName}}</p>
+							<p><strong>Gender:  </strong>{{patientGender}}</p>
+							<p><strong>Date Of Birth:  </strong>{{patientDob}}</p>
+				<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+			
+            <form id="frontTaskForm" ng-submit="finishFrontDesk()" class="form-horizontal" >
+                
+
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <button  class="btn btn-primary">Send to Nurse </button>
+                    </div>
+                </div>
+            </form>
+			</div>
+        
+							
+                        </div>
+                        <div class="panel-footer">
+                            Panel Footer
+                        </div>
+                    </div>
+                </div>
+
+	
+                
+ </div>                
+<% include lowerTemplate %>
+  <script src="../controllers/frontDeskController.js"></script>

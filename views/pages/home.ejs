@@ -1,134 +1,207 @@
 <% include upperTemplate %>
+    <div class="col-lg-9">
 
-       
-		 <div ng-app="homeApp" ng-controller="safeCtrl">
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>Total Tasks</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-					
-				<div class="panel panel-green">
-				
-				
-					
-                    
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{normalTCount}}</div>
-                                    <div>Normal Priority</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>High Priority</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{highTcount}}</div>
-                                    <div>Highest Priority</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-            
+        <div class="row" >
+            <section>
 
 
+
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#info-tab" data-toggle="tab">Information <i class="fa"></i></a>
+                    </li>
+                    <li><a href="#address-tab" data-toggle="tab">Address <i class="fa"></i></a>
+                    </li>
+                    <li><a href="#insurance-tab" data-toggle="tab">Insurance <i class="fa"></i></a>
+                    </li>
+                </ul>
+
+                <form name="patientCheckInForm"  id="patientCheckInForm" action="/startInst" method="post" class="form-horizontal" style="margin-top: 20px;">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="info-tab">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">First name</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="firstName" />
+                                </div>
+                            </div>
+							
+			
+                            <!---form element start -->
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Middle name</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="midName" />
+                                </div>
+                            </div>
+                            <!---form element end -->
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Last name</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="lastName" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Gender</label>
+                                <div class="col-lg-5">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="true" /> Male
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="false" /> Female
+                                        </label>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Date Of Birth</label>
+                                <div class="col-lg-5">
+                                    <div class='input-group date' id='dob'>
+                                        <input type='text' class="form-control" name="dob" />
+                                        <span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane fade" id="address-tab">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Address 1</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="address1" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Address 2</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="address2" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">State</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="state" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">City</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="city" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Country</label>
+                                <div class="col-lg-5">
+                                    <select class="form-control" name="country">
+                                        <option value="">Select a country</option>
+                                        <option value="FR">France</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="RU">Russian</option>
+                                        <option value="US">United State</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Zip</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="zip" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Phone</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="phone" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Email</label>
+                                <div class="col-lg-5">
+                                    <input type="email"" class="form-control" name="email" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="insurance-tab">
+						  
+						 <div class="form-group">
+                                <label class="col-lg-3 control-label">Is Insured</label>
+                                <div class="col-lg-5">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="isInsured" value="true" /> Yes
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="isInsured" value="false" /> No
+                                        </label>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Member ID</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="memberId" />
+                                </div>
+                            </div>
+							
+							<div class="form-group">
+                                <label class="col-lg-3 control-label">Organization</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="organization" />
+                                </div>
+                            </div>
+							
+							<div class="form-group">
+                                <label class="col-lg-3 control-label">Expiry Date</label>
+                                <div class="col-lg-5">
+                                    <div class='input-group date' id='insExpDate'>
+                                        <input type='text' class="form-control" name="insExpDate" />
+                                        <span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+							
+							<!-------cds-->
+					    
+				<!---cds edn-->
+
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-5 col-lg-offset-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </section>
+        </div>
 		
-
-		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
-			<thead>
-			<tr>
-				<th st-sort="instanceName">Instance Name:Instance ID</th>
-				<th st-sort="taskSubjecte">Task Subject</th>
-				<th st-sort="taskId">Task ID</th>
-				<th st-sort="taskDueDate">Task DueDate</th>
-			</tr>
-			<tr>
-				<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr ng-repeat="row in displayedCollection">
-				<td>{{row.instanceName}}</td>
-				<td>{{row.taskSubject}}</td>
-				<td>{{row.taskId}}</td>
-				<td>{{row.taskDueDate}}</td>
-				
-			</tr>
-			</tbody>
-		</table>
-
-	
-                
- </div>                
-<% include lowerTemplate %>
-  <script src="../controllers/homeController.js"></script>
+    </div>
+    <% include lowerTemplate %>
+    <script src="../js/homeLogic.js"></script>
+  

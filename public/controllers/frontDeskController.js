@@ -1,10 +1,10 @@
-var helloApp= angular.module('doctorApp', ['smart-table']);
+var helloApp= angular.module('frontDeskApp', ['smart-table']);
 
 helloApp.controller('safeCtrl', function ($scope,$http,$window) {
 
 	//get Intial data
 	var refresh= function(){
-		$http.post('/doctor/doctorTasks').success(function(response){
+		$http.post('/frontDesk/frontDeskTasks').success(function(response){
 	
 		  
 		//console.log(response);
@@ -25,7 +25,8 @@ helloApp.controller('safeCtrl', function ($scope,$http,$window) {
 			$scope.workTask= function(task,rowIndex){
 				$scope.selectedRow = rowIndex;
 		  //console.log(task);
-				$http.get('/doctor/doctorTask/'+task.taskId).success(function(response){
+				$http.get('/frontdesk/frontDeskTask/'+task.taskId).success(function(response){
+					
 			  $scope.processInstanceName=response.processInstanceName; 
 			  $scope.tkiid=response.tkiid;
 			  $scope.taskDesc=response.description;
@@ -35,12 +36,6 @@ helloApp.controller('safeCtrl', function ($scope,$http,$window) {
 			  $scope.patientGender=response.data.variables.person.gender;
 			  $scope.patientDob=response.data.variables.person.dateOfBirth;
 			
-			  //triage Info
-			  $scope.bloodPressure=response.data.variables.triageInfo.bloodPressure;
-			  $scope.heartBeat=response.data.variables.triageInfo.heartBeat;
-			  $scope.height=response.data.variables.triageInfo.height;
-			  $scope.temparature=response.data.variables.triageInfo.temparature;
-			  $scope.weight=response.data.variables.triageInfo.weight;
 			  console.log(response);
 			  
 		  });
@@ -58,25 +53,17 @@ helloApp.controller('safeCtrl', function ($scope,$http,$window) {
     
 
 
-helloApp.controller('postDctrCtrl', function ($scope,$http,$window) {
+helloApp.controller('postFrontDeskCtrl', function ($scope,$http,$window) {
 	
 
-	$scope.postDoctor=function(){
-		if($scope.tkiid && $scope.temp && $scope.heartBeat && $scope.bloodpressure && $scope.height && $scope.weight ){
+	$scope.finishFrontDesk=function(){
+		if($scope.tkiid){
 			
-			var dataObj = {"tkiid":$scope.tkiid,
-							"taskParam":{
-										"triageInfo":{
-													  "temparature": $scope.temp,
-													  "heartBeat": $scope.heartBeat,
-													   "bloodPressure":$scope.bloodpressure,
-													   "height":$scope.height,
-													   "weight":$scope.weight
-													  }
-										}
-						}
+			var dataObj = {"tkiid":$scope.tkiid}
+							
+						
 			
-			$http.post('/doctor/postDoctor',dataObj)
+			$http.post('/frontdesk/postFrntDeskTask',dataObj)
 			
 			
 			.success(function(response){
