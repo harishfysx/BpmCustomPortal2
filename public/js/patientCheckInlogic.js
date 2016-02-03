@@ -16,6 +16,8 @@ $('#insExpDate').datetimepicker({
     // $('#defaultForm').bootstrapValidator('revalidateField', 'datetimePicker');
 });;
 
+
+
 $(document).ready(function() {
     $('#frontDeskForm')
         .bootstrapValidator({
@@ -87,7 +89,11 @@ $(document).ready(function() {
                 zip: {
                     validators: {
                         notEmpty: {
-                            message: 'The Zip is required'
+                            message: 'The zip is required'
+                        },
+                        numeric: {
+                            message: 'The value is not an numeric'
+                            
                         }
                     }
                 },
@@ -95,7 +101,12 @@ $(document).ready(function() {
                     validators: {
                         notEmpty: {
                             message: 'The Phone is required'
+                        },
+                        numeric: {
+                            message: 'The value is not an numeric'
+                            
                         }
+                        
                     }
                 },
                 memberId: {

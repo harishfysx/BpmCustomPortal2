@@ -15,7 +15,9 @@ var xhr = require('node-xhr');
 var tressPass= require('./routes/tressPass');
 var frontDesk= require('./routes/frontDesk');
 var nurse= require('./routes/nurse');
-var getTasks= require('./routes/getTasks');
+var doctor= require('./routes/doctor');
+var frontDeskTasks= require('./routes/frontDeskTasks');
+
 var app = express();
 
 // view engine setup
@@ -95,8 +97,10 @@ app.use(function(req, res, next) {
 app.use('/',tressPass);
 
 app.use('/frontDesk',frontDesk);
-app.use('/data',getTasks);
+app.use('/data',frontDeskTasks);
 app.use('/nurse',nurse);
+app.use('/doctor',doctor);
+
 
 
 

@@ -59,7 +59,7 @@ router.post('/startInst',function(req, res, next) {
 					}
 	console.log(patientData)
 	
-	xhr.post({
+xhr.post({
         url: config.baseUrl+'/bpm/wle/v1/process?',
         headers: {
             'Content-Type': 'application/json',
