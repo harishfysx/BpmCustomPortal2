@@ -1,16 +1,16 @@
 var express = require('express');
 var passport = require('passport');
-var ensureAuth =require('connect-ensure-login');
-var xhr = require('node-xhr');
-var bodyParser=require("body-parser");
 var favicon = require('serve-favicon');
+var ensureAuth =require('connect-ensure-login');
+var bodyParser = require('body-parser');
+var xhr = require('node-xhr');
 var config = require('./config');
-var path = require('path');
 var a = require("array-tools");
 var router = express.Router();
 
-router.get('/',ensureAuth.ensureLoggedIn('/login'), function(req, res, next) {
-	res.render('pages/doctor',{pageHeader:'Doctor Dashboard'});
+
+router.get('/', ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
+  res.render('pages/frontDeskGB',{pageHeader:'Front Desk GB Dashboard'});
 });
 
 
@@ -18,11 +18,13 @@ router.get('/logout', function(req, res) {
 	  req.logout();
 	  res.redirect('/login');
 	})
-	
-	
-//get Doctor Tasks
-router.post('/doctorTasks',function(req, res, next) {
-	console.log(res.locals.userName)
+
+router.get('/success200',function(req, res) {
+  res.render('pages/success200');
+});
+
+router.post('/frontDeskGBTasks',function(req, res, next) {
+	//console.log(res.locals.userName)
 	
 	xhr.put({
         url: config.baseUrl+'/bpm/wle/v1/search/query/?',
@@ -31,7 +33,7 @@ router.post('/doctorTasks',function(req, res, next) {
             'Authorization': res.locals.auth
         },
         params: {
-            condition: ['taskActivityName|Equals|Diagnose Patient', 'taskStatus|Equals|Received'],
+            condition: ['taskActivityName|Equals|Generate Bill', 'taskStatus|Equals|Received'],
             organization: 'byInstance'
         },
     }, function(err, resp) {
@@ -50,7 +52,8 @@ router.post('/doctorTasks',function(req, res, next) {
         refinedData.highTcount=a.where(resp.body.data.data, { taskPriority: "High" }).length;
         refinedData.lowTcount=a.where(resp.body.data.data, { taskPriority: "Low" }).length;
         }
-        
+        //console.log("tasks were fetched")
+        	//console.log(resp.body.data.totalCount);
         res.json(refinedData);
         
     }
@@ -59,11 +62,12 @@ router.post('/doctorTasks',function(req, res, next) {
         }
     }    
 	);
-	
+	//console.log(resp);
+	  //res.render('pages/home',{tagline:req.user.userName||'test'});
 	});
 
-//get specifi doctor task
-router.get('/doctorTask/:id',function(req, res, next) {
+//get specific task details
+router.get('/frontDeskGBTask/:id',function(req, res, next) {
 	console.log(res.locals.userName)
 	
 	xhr.get({
@@ -94,9 +98,10 @@ router.get('/doctorTask/:id',function(req, res, next) {
 	
 	});
 
-//post (fnish) doctor task
-router.post('/postDoctor',function(req, res, next) {
-	//console.log(res.locals.userName)
+//finish Front Desk Task
+
+router.post('/postFrntDeskGBTask',function(req, res, next) {
+	
 	
 	xhr.put({
         url: config.baseUrl+'/bpm/wle/v1/task/'+req.body.tkiid+'?',
@@ -106,7 +111,6 @@ router.post('/postDoctor',function(req, res, next) {
         },
         params: {
             action: 'finish',
-            params: req.body.taskParam,
 			parts:'all'
         },
     }, function(err, resp) {
@@ -119,9 +123,10 @@ router.post('/postDoctor',function(req, res, next) {
         
         
         
-    });  
-	
+    }    
+	);
 	
 	});
+
 
 module.exports = router;

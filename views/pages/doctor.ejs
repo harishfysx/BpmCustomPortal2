@@ -145,36 +145,69 @@
 			   
                <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
                <form id="dctrForm" ng-submit="postDoctor()" class="form-horizontal" >
-                  <div class="form-group">
-                     <label class="col-lg-3 control-label">Temparature</label>
-                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="temparature" ng-model="temp" autocomplete="off" />
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label class="col-lg-3 control-label">Heart-Beat</label>
-                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="heartBeat" ng-model="heartBeat" autocomplete="off" />
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label class="col-lg-3 control-label">Blood-Pressure</label>
-                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="bloodpressure" ng-model="bloodpressure" autocomplete="off" />
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label class="col-lg-3 control-label">Height</label>
-                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="height" ng-model="height" autocomplete="off" />
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label class="col-lg-3 control-label">Weight</label>
-                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="weight" ng-model="weight" autocomplete="off" />
-                     </div>
-                  </div>
+                  <!---Add Table starts Here-->
+				  
+			 <div class="form-group">
+                                <label class="col-lg-3 control-label">Tests Needed</label>
+                                <div class="col-lg-5" ng-init="testsNeeded=false" >
+                                    <div class="radio" >
+                                        <label>
+                                            <input type="radio" name="testsNeeded" ng-model="testsNeeded" value="true" /> Yes
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio"  name="testsNeeded" ng-model="testsNeeded" value="false" /> No
+                                        </label>
+                                    </div>
+                                   
+                                </div>
+            </div>
+
+		<table class="table">
+    <thead>
+      <tr>
+        <th>Drug Name</th>
+        <th>Quantity</th>
+        <th>Usage Info</th>
+        <th>Action</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      		<td><input class="form-control" ng-model="presDrug.drugName"></td>
+    		<td><input class="form-control" ng-model="presDrug.quantity"></td>
+    		<td><input class="form-control" ng-model="presDrug.usageInfo"></td>
+    		
+			<td>
+			<button type="button" ng-click="addDrug()" class="btn btn-sm btn-success">
+			<i class="glyphicon glyphicon-plus">
+			</i> Add Drug
+			</button>
+			</td>
+    		
+    		
+      </tr>
+      <tr ng-repeat="presDrug in presDrugtList">
+      		<td>{{ presDrug.drugName }}</td>
+    		<td>{{ presDrug.quantity }}</td>
+    		<td>{{ presDrug.usageInfo }}</td>
+			<td>
+				<button type="button" ng-click="removeDrug(presDrug)" class="btn btn-sm btn-danger">
+					<i class="glyphicon glyphicon-remove-circle">
+					</i>
+				</button>
+				</td>
+    		
+    		
+    		
+      </tr>
+    </tbody>
+  </table>
+				  
+				  
+				  <!---Add Table Ends Here-->
                   <div class="form-group">
                      <div class="col-lg-9 col-lg-offset-3">
                         <button  class="btn btn-primary">Submit</button>

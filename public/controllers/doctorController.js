@@ -41,7 +41,7 @@ helloApp.controller('safeCtrl', function ($scope,$http,$window) {
 			  $scope.height=response.data.variables.triageInfo.height;
 			  $scope.temparature=response.data.variables.triageInfo.temparature;
 			  $scope.weight=response.data.variables.triageInfo.weight;
-			  console.log(response);
+			  //console.log(response);
 			  
 		  });
 		  
@@ -60,23 +60,53 @@ helloApp.controller('safeCtrl', function ($scope,$http,$window) {
 
 helloApp.controller('postDctrCtrl', function ($scope,$http,$window) {
 	
+	
 
-	$scope.postDoctor=function(){
-		if($scope.tkiid && $scope.temp && $scope.heartBeat && $scope.bloodpressure && $scope.height && $scope.weight ){
-			
-			var dataObj = {"tkiid":$scope.tkiid,
-							"taskParam":{
-										"triageInfo":{
-													  "temparature": $scope.temp,
-													  "heartBeat": $scope.heartBeat,
-													   "bloodPressure":$scope.bloodpressure,
-													   "height":$scope.height,
-													   "weight":$scope.weight
-													  }
-										}
-						}
-			
-			$http.post('/doctor/postDoctor',dataObj)
+   
+
+  
+
+   
+
+    //add to the real data holder
+  
+    $scope.presDrugtList = [];
+    
+    $scope.addDrug = function () {
+    	//console.log($scope.presDrug);
+    	$scope.presDrugtList.push($scope.presDrug);
+    	$scope.presDrug="";
+    	
+    }
+    
+
+    //remove to the real data holder
+    $scope.removeDrug = function removeItem(presDrug) {
+        var index = $scope.presDrugtList.indexOf(presDrug);
+        if (index !== -1) {
+            $scope.presDrugtList.splice(index, 1);
+        }
+    }
+    //post doctor task to fnish
+$scope.postDoctor=function(){
+    //console.log($scope.presDrugtList);
+    //console.log($scope.testsNeeded);
+    
+    
+	if($scope.tkiid){
+		
+		 //console.log($scope.tkiid);
+		
+		 
+		 var dataObj = {"tkiid":$scope.tkiid,
+					   "taskParam":{
+								"diagInfo":{
+											  "testsNeeded": $scope.testsNeeded,
+											  "presDrug":$scope.presDrugtList
+											  }
+								}
+				}
+		 $http.post('/doctor/postDoctor',dataObj)
 			
 			
 			.success(function(response){
@@ -84,12 +114,15 @@ helloApp.controller('postDctrCtrl', function ($scope,$http,$window) {
 			});
 			
 			$window.location.reload();
-		}else{
-			console.log("no task is selected");
-		}
-		
-		
+		 
+		 
+	}else{
+		//console.log("no task is selected");
+		$window.alert("no task is selected");
 	}
+}
+
+
 	
 	
 	

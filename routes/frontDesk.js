@@ -10,7 +10,7 @@ var router = express.Router();
 
 
 router.get('/', ensureAuth.ensureLoggedIn('/login'),function(req, res, next) {
-  res.render('pages/frontDesk',{pageHeader:'Front Desk Dashboard'});
+  res.render('pages/frontDesk',{pageHeader:'Front Desk PC Dashboard'});
 });
 
 

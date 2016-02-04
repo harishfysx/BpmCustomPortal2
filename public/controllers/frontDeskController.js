@@ -73,6 +73,7 @@ helloApp.controller('postFrontDeskCtrl', function ($scope,$http,$window) {
 			$window.location.reload();
 		}else{
 			console.log("no task is selected");
+			$window.alert("no task is selected");
 		}
 		
 		

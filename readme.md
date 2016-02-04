@@ -1,4 +1,6 @@
-Versin10
+Versin13
 
-Project  file system restrucred. To be impllemneted docotr screen.
+All are completed except Medical Lab test screen.
+Charaka project twx uploaded
+
 

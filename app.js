@@ -14,6 +14,7 @@ var xhr = require('node-xhr');
 //var SignIn = require('./routes/signIn'); 
 var home= require('./routes/home');
 var frontDesk= require('./routes/frontDesk');
+var frontDeskGB= require('./routes/frontDeskGB');
 var nurse= require('./routes/nurse');
 var doctor= require('./routes/doctor');
 
@@ -98,6 +99,8 @@ app.use('/',home);
 app.use('/frontDesk',frontDesk);
 app.use('/nurse',nurse);
 app.use('/doctor',doctor);
+app.use('/frontDeskGB',frontDeskGB);
+
 
 
 
