@@ -1,6 +1,5 @@
-Versin13
+Versin14
 
-All are completed except Medical Lab test screen.
-Charaka project twx uploaded
+All screens are completed.
 
 

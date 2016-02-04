@@ -17,7 +17,7 @@ var frontDesk= require('./routes/frontDesk');
 var frontDeskGB= require('./routes/frontDeskGB');
 var nurse= require('./routes/nurse');
 var doctor= require('./routes/doctor');
-
+var labTech= require('./routes/labTech');
 
 var app = express();
 
@@ -100,6 +100,7 @@ app.use('/frontDesk',frontDesk);
 app.use('/nurse',nurse);
 app.use('/doctor',doctor);
 app.use('/frontDeskGB',frontDeskGB);
+app.use('/labTech',labTech);
 
 
 

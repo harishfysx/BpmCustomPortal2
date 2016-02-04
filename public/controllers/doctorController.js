@@ -42,7 +42,10 @@ helloApp.controller('safeCtrl', function ($scope,$http,$window) {
 			  $scope.temparature=response.data.variables.triageInfo.temparature;
 			  $scope.weight=response.data.variables.triageInfo.weight;
 			  //console.log(response);
-			  
+			  $scope.ctScan=response.data.variables.medTestInfo.ctScan
+			  $scope.mri=response.data.variables.medTestInfo.mri
+			  $scope.xray=response.data.variables.medTestInfo.xray
+
 		  });
 		  
 		  

@@ -1,5 +1,5 @@
 <% include upperTemplate %>
-<div ng-app="doctorApp" ng-controller="safeCtrl">
+<div ng-app="labTechApp" ng-controller="safeCtrl">
    <!-- /.row -->
    <div class="row">
       <div class="col-lg-3 col-md-6">
@@ -113,118 +113,50 @@
          </tr>
       </tbody>
    </table>
-   <div ng-controller="postDctrCtrl" >
+   <div ng-controller="postLabTechCtrl" >
       <div class="col-lg-12">
          <div class="panel panel-primary">
             <div class="panel-heading">
                {{processInstanceName}}
             </div>
             <div class="panel-body">
-				<div class="row">
-					<div class="col-sm-4">
-						<input class="form-control" id="disabledInput" type="text" placeholder={{tkiid}} ng-model="tkiid" style="display: none;">
-						<h3 class="text-primary"> Patient </h3>
-						<p><strong>Task ID:  </strong>{{tkiid}}</p>
-						<p><strong>Task Description:  </strong>{{taskDesc}}</p>
-						<p><strong>First Name:  </strong>{{patientFName}}</p>
-						<p><strong>Middle Name:  </strong>{{patientMName}}</p>
-						<p><strong>Last Name:  </strong>{{patientLName}}</p>
-						<p><strong>Gender:  </strong>{{patientGender}}</p>
-						<p><strong>Date Of Birth:  </strong>{{patientDob}}</p>
-					</div>
-					<div class="col-sm-4">
-						<h3 class="text-primary"> Triage Info </h3>
-						<p><strong>Blood Pressure:  </strong>{{bloodPressure}}</p>
-						<p><strong>Heart Beat:  </strong>{{heartBeat}}</p>
-						<p><strong>Height:  </strong>{{height}}</p>
-						<p><strong>Weight:  </strong>{{weight}}</p>
-						<p><strong>Temparature:  </strong>{{temparature}}</p>
-						
-					</div>
-					
-				</div>
-				<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
-				<div class="row">
-					<div class="col-sm-4">
-						<h3 class="text-primary"> Lab Tests </h3>
-						<p><strong>MRI :  </strong>{{mri}}</p>
-						<p><strong>CT SCAN:  </strong>{{ctScan}}</p>
-						<p><strong>X-RAY:  </strong>{{xray}}</p>
-					</div>
-					
-					
-				</div>
-			   
+               <input class="form-control" id="disabledInput" type="text" placeholder={{tkiid}} ng-model="tkiid" style="display: none;">
+               <p><strong>Task ID:  </strong>{{tkiid}}</p>
+               <p><strong>Task Description:  </strong>{{taskDesc}}</p>
+               <p><strong>First Name:  </strong>{{patientFName}}</p>
+               <p><strong>Middle Name:  </strong>{{patientMName}}</p>
+               <p><strong>Last Name:  </strong>{{patientLName}}</p>
+               <p><strong>Gender:  </strong>{{patientGender}}</p>
+               <p><strong>Date Of Birth:  </strong>{{patientDob}}</p>
                <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
-               <form id="dctrForm" ng-submit="postDoctor()" class="form-horizontal" >
-                  <!---Add Table starts Here-->
-				  
-			 <div class="form-group">
-                                <label class="col-lg-3 control-label">Tests Needed</label>
-                                <div class="col-lg-5" ng-init="testsNeeded=false" >
-                                    <div class="radio" >
-                                        <label>
-                                            <input type="radio" name="testsNeeded" ng-model="testsNeeded" value="true" /> Yes
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio"  name="testsNeeded" ng-model="testsNeeded" value="false" /> No
-                                        </label>
-                                    </div>
-                                   
-                                </div>
-            </div>
-
-		<table class="table">
-    <thead>
-      <tr>
-        <th>Drug Name</th>
-        <th>Quantity</th>
-        <th>Usage Info</th>
-        <th>Action</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-      		<td><input class="form-control" ng-model="presDrug.drugName"></td>
-    		<td><input class="form-control" ng-model="presDrug.quantity"></td>
-    		<td><input class="form-control" ng-model="presDrug.usageInfo"></td>
-    		
-			<td>
-			<button type="button" ng-click="addDrug()" class="btn btn-sm btn-success">
-			<i class="glyphicon glyphicon-plus">
-			</i> Add Drug
-			</button>
-			</td>
-    		
-    		
-      </tr>
-      <tr ng-repeat="presDrug in presDrugtList">
-      		<td>{{ presDrug.drugName }}</td>
-    		<td>{{ presDrug.quantity }}</td>
-    		<td>{{ presDrug.usageInfo }}</td>
-			<td>
-				<button type="button" ng-click="removeDrug(presDrug)" class="btn btn-sm btn-danger">
-					<i class="glyphicon glyphicon-remove-circle">
-					</i>
-				</button>
-				</td>
-    		
-    		
-    		
-      </tr>
-    </tbody>
-  </table>
-				  
-				  
-				  <!---Add Table Ends Here-->
+               <form id="labTechForm" ng-submit="postLabTech()" class="form-horizontal" >
                   <div class="form-group">
-                     <div class="col-lg-9 col-lg-offset-3">
-                        <button  class="btn btn-primary">Submit</button>
-                     </div>
+                     <label class="col-lg-3 control-label">CT Scan:</label>
+					 <div class="col-lg-5">
+                     <textarea class="form-control" rows="3" name="ctScan" ng-model="ctScan" autocomplete="off"></textarea>
+					 </div>
                   </div>
+				  
+				  <div class="form-group">
+                     <label class="col-lg-3 control-label">MRI :</label>
+					 <div class="col-lg-5">
+                     <textarea class="form-control" rows="3" name="mri" ng-model="mri" autocomplete="off"></textarea>
+					 </div>
+                  </div>
+				  
+				  <div class="form-group">
+                     <label class="col-lg-3 control-label">X-Ray:</label>
+					 <div class="col-lg-5">
+                     <textarea class="form-control" rows="3" name="xray" ng-model="xray" autocomplete="off"></textarea>
+					 </div>
+                  </div>
+				  
+				  <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <button  class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+				
                </form>
             </div>
          </div>
@@ -236,5 +168,4 @@
 </div>
 <% include lowerTemplate %>
 <!-- Controllers -->
-<script src="../controllers/doctorController.js"></script>
-<script src="../js/doctorValidation.js"></script>
+<script src="../controllers/labTechController.js"></script>
