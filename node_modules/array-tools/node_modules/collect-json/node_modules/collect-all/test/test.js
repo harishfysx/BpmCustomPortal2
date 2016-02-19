@@ -1,8 +1,8 @@
 var test = require('tape')
-var collect = require('../')
+var collectAll = require('../')
 
-test('collect', function (t) {
-  var stream = collect()
+test('collectAll', function (t) {
+  var stream = collectAll()
   stream.on('readable', function () {
     var chunk = this.read()
     if (chunk) {
@@ -16,8 +16,8 @@ test('collect', function (t) {
   stream.end()
 })
 
-test('.collect(through)', function (t) {
-  var stream = collect(function (data) {
+test('.collectAll(through)', function (t) {
+  var stream = collectAll(function (data) {
     return data + 'yeah?'
   })
 
@@ -32,4 +32,22 @@ test('.collect(through)', function (t) {
   stream.end('clive')
 })
 
-test('passing decodeStrings etc. ')
+test('.collectAll(through): object mode', function (t) {
+  function through (collected) {
+    collected.forEach(function (object) {
+      object.received = true
+    })
+    return collected
+  }
+  var stream = collectAll(through, { objectMode: true })
+
+  stream.on('readable', function () {
+    var collected = this.read()
+    if (collected) {
+      t.deepEqual(collected, [ { received: true }, { received: true } ])
+      t.end()
+    }
+  })
+  stream.write({})
+  stream.end({})
+})

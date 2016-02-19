@@ -10,8 +10,10 @@ var flash    = require('connect-flash');
 var ensureAuth =require('connect-ensure-login');
 var xhr = require('node-xhr');
 
+
 //routes loading
-//var SignIn = require('./routes/signIn'); 
+//var SignIn = require('./routes/signIn');
+var config = require('./routes/config');
 var home= require('./routes/home');
 var frontDesk= require('./routes/frontDesk');
 var frontDeskGB= require('./routes/frontDeskGB');
@@ -54,7 +56,7 @@ passport.use(new LocalStrategy({
 	app.locals.auth = auth;
         // check in mongo if a user with username exists or not
         xhr.get({
-            url: 'http://192.168.2.140:9080/rest/bpm/wle/v1/user/current',
+            url: config.baseUrl+'/bpm/wle/v1/user/current',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': auth

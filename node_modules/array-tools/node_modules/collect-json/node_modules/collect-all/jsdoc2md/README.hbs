@@ -1,5 +1,5 @@
 [![view on npm](http://img.shields.io/npm/v/collect-all.svg)](https://www.npmjs.org/package/collect-all)
-[![npm module downloads per month](http://img.shields.io/npm/dm/collect-all.svg)](https://www.npmjs.org/package/collect-all)
+[![npm module downloads](http://img.shields.io/npm/dt/collect-all.svg)](https://www.npmjs.org/package/collect-all)
 [![Build Status](https://travis-ci.org/75lb/collect-all.svg?branch=master)](https://travis-ci.org/75lb/collect-all)
 [![Dependency Status](https://david-dm.org/75lb/collect-all.svg)](https://david-dm.org/75lb/collect-all)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)

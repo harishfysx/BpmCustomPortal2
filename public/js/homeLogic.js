@@ -1,5 +1,6 @@
 $('#dob').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'YYYY-MM-DD',
+    maxDate: new Date()
 }).on('dp.change dp.show', function(e) {
     // Validate the date when user change it
     $('#patientCheckInForm').data('bootstrapValidator').revalidateField('dob');
